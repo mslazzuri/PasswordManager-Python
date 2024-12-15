@@ -41,7 +41,7 @@ class Password:
 class PasswordManager:
     """Manages passwords."""
 
-    def __init__(self, file_path: str = "~/Desktop/passwords.txt") -> None:
+    def __init__(self, file_path: str = "/Users/matheussecco/Desktop/PasswordManager/PasswordManagerApp/passwords/passwords.txt") -> None:
         """
         Opens passwords file and reads its contents into a dictionary.
 
