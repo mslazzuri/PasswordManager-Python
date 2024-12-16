@@ -1,8 +1,13 @@
 import json
 import os
 
-USERS_FILE = "passwords.txt"
-PASSWORDS_FILE = "user.txt"
+DATA_DIR = "/Users/matheussecco/Desktop/PasswordManager/PasswordManagerApp/.data"
+
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
+
+USERS_FILE = os.path.join(DATA_DIR, ".user.txt")
+PASSWORDS_FILE = os.path.join(DATA_DIR, ".password.txt")
 
 # Load users from a file
 def load_users() -> dict:

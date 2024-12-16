@@ -163,3 +163,5 @@ cython_debug/
 
 # TextFiles inside 'passwords' directory
 passwords/*.txt
+
+.data
