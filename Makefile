@@ -2,7 +2,7 @@ all: run
 
 .PHONY: run
 run:
-	python3.13 src/password_manager.py
+	python3 main.py
 
 .PHONY: clean
 clean:
