@@ -2,7 +2,7 @@ all: run
 
 .PHONY: run
 run:
-	python3 main.py
+	.PyEnv/bin/python3 main.py
 
 .PHONY: clean
 clean:

@@ -1,7 +1,7 @@
 import json
 import os
 
-DATA_DIR = "/Users/matheussecco/Desktop/PasswordManager/PasswordManagerApp/.data"
+DATA_DIR = "/Users/matheussecco/PasswordManager/PasswordManagerApp/.data"
 
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
