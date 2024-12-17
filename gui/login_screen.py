@@ -8,9 +8,10 @@ from gui.password_manager import PasswordManagerApp
 class LoginScreen:
     def __init__(self, root):
         self.root = root
-        self.root.title("Login Screen")
-
+        self.root.title("Login")
         self.users = load_users()
+
+        ################################################################################
 
         # UI Colors
         navy_blue = "#05445e"
@@ -20,26 +21,89 @@ class LoginScreen:
         white = "#ffffff"
 
         # UI Fonts
-        helvetica_bold = ("Helvetica", 12, "bold")
+        helvetica_bold = ("Helvetica", 20, "bold")
+        goldman = ("Goldman", 20, "bold")
+        changa = ("Changa", 20)
+        changa_small = ("Changa", 14)
         arial = ("Arial", 10)
+
+        ################################################################################
 
         # Set background color for the window
         self.root.configure(bg=navy_blue)
 
         # UI Elements
-        tk.Label(root, text="Username:").grid(row=0, column=0, pady=5, padx=5)
-        self.username_entry = tk.Entry(root)
-        self.username_entry.grid(row=0, column=1, pady=5, padx=5)
 
-        tk.Label(root, text="Password:").grid(row=1, column=0, pady=5, padx=5)
-        self.password_entry = tk.Entry(root, show="*")
-        self.password_entry.grid(row=1, column=1, pady=5, padx=5)
+        # Logo
+        logo_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/logo.svg"
+        logo = tk.PhotoImage(file=logo_path)
+        logo = logo.subsample(3)
+        logo_label = tk.Label(
+            self.root,
+            image=logo,
+            background=navy_blue
+        )
+        logo_label.image = logo
+        logo_label.grid(row=0, column=0, columnspan=3, pady=10)
 
-        self.login_button = tk.Button(root, text="Login", command=self.login)
-        self.login_button.grid(row=2, column=0, pady=10)
+        # Username
+        tk.Label(
+            self.root,
+            text="Username:",
+            background=navy_blue,
+            foreground=baby_green,
+            font=changa
+        ).grid(row=1, column=0, pady=8, padx=8)
 
-        self.register_button = tk.Button(root, text="Register", command=self.register)
-        self.register_button.grid(row=2, column=1, pady=10)
+        # Username box (user)
+        self.username_entry = tk.Entry(self.root, background=baby_green, foreground=navy_blue, font=changa_small)
+        self.username_entry.grid(row=1, column=1, pady=8, padx=8)
+
+        # Password
+        tk.Label(
+            self.root,
+            text="Password:",
+            background=navy_blue,
+            foreground=baby_green,
+            font=changa
+        ).grid(row=2, column=0, pady=5, padx=5)
+        
+        # Password box (user)
+        self.password_entry = tk.Entry(self.root, show="*", background=baby_green, foreground=navy_blue, font=changa_small)
+        self.password_entry.grid(row=2, column=1, pady=8, padx=8)
+
+        # Login Button
+        self.login_button = tk.Button(
+            self.root,
+            text="Login",
+            font=changa,
+            foreground=navy_blue, 
+            background=blue_green,  # Background color
+            activebackground=navy_blue,  # Active background when clicked
+            activeforeground=blue_green,  # Active text color when clicked
+            relief='flat',  # Makes the button flat without borders
+            borderwidth=0,  # Removes the border width
+            highlightthickness=0,  # Removes the highlight border
+            command=self.login
+        )
+        self.login_button.grid(row=4, column=0, pady=10)
+
+        # Register User Button
+        self.register_button = tk.Button(
+        self.root, 
+        text="Register", 
+        font=changa, 
+        foreground=navy_blue, 
+        background=blue_green,  # Background color
+        activebackground=navy_blue,  # Active background when clicked
+        activeforeground=blue_green,  # Active text color when clicked
+        relief='flat',  # Makes the button flat without borders
+        borderwidth=0,  # Removes the border width
+        highlightthickness=0,  # Removes the highlight border
+        command=self.register
+    )
+
+        self.register_button.grid(row=4, column=1, pady=10)
 
     def login(self):
         username = self.username_entry.get()
