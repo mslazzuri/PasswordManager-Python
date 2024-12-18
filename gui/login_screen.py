@@ -4,6 +4,7 @@ from tkinter import messagebox
 from utils.file_utils import load_users, save_users
 from utils.crypto_utils import hash_password, verify_password
 from gui.password_manager import PasswordManagerApp
+from PIL import Image, ImageTk
 
 class LoginScreen:
     def __init__(self, root):
@@ -35,9 +36,16 @@ class LoginScreen:
         # UI Elements
 
         # Logo
-        logo_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/logo.svg"
-        logo = tk.PhotoImage(file=logo_path)
-        logo = logo.subsample(3)
+        logo_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/logo.png"
+
+        original_image = Image.open(logo_path)
+        new_width = 400
+        ratio = original_image.height / original_image.width
+        new_height = int(new_width * ratio)
+        resized_image = original_image.resize((new_width, new_height), None)
+
+        logo = ImageTk.PhotoImage(resized_image)
+    
         logo_label = tk.Label(
             self.root,
             image=logo,
