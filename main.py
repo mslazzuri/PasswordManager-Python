@@ -1,8 +1,9 @@
 import tkinter as tk
+from customtkinter import *
 from gui.login_screen import LoginScreen
 
 def main():
-    root = tk.Tk()
+    root = CTk()
     app = LoginScreen(root)
     root.mainloop()
 

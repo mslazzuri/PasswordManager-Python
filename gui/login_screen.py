@@ -1,13 +1,23 @@
 # login_screen.py
 import tkinter as tk
 from tkinter import messagebox
+from customtkinter import *
 from utils.file_utils import load_users, save_users
 from utils.crypto_utils import hash_password, verify_password
 from gui.password_manager import PasswordManagerApp
 from PIL import Image, ImageTk
 
 class LoginScreen:
-    def __init__(self, root):
+    """Defines the Login Screen UI and its functions."""
+
+    def __init__(self, root: CTk) -> None:
+        """
+        Initialize the Login Screen Window
+
+        Params:
+            root (CTk): The CTk main object for the program.
+        """
+        
         self.root = root
         self.root.title("Login")
         self.users = load_users()
@@ -31,7 +41,7 @@ class LoginScreen:
         ################################################################################
 
         # Set background color for the window
-        self.root.configure(bg=navy_blue)
+        self.root.config(bg=navy_blue)
 
         # UI Elements
 
@@ -81,39 +91,41 @@ class LoginScreen:
         self.password_entry.grid(row=2, column=1, pady=8, padx=8)
 
         # Login Button
-        self.login_button = tk.Button(
-            self.root,
+        self.login_button = CTkButton(
+            master=self.root,
             text="Login",
+            corner_radius=32,
+            fg_color="orange",
+            bg_color=navy_blue,
+            text_color=baby_green,
+            hover=True,
+            hover_color=navy_blue,
             font=changa,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
-            highlightthickness=0,  # Removes the highlight border
-            command=self.login
+            command=self.login,
         )
         self.login_button.grid(row=4, column=0, pady=10)
 
         # Register User Button
-        self.register_button = tk.Button(
-        self.root, 
-        text="Register", 
-        font=changa, 
-        foreground=navy_blue, 
-        background=blue_green,  # Background color
-        activebackground=navy_blue,  # Active background when clicked
-        activeforeground=blue_green,  # Active text color when clicked
-        relief='flat',  # Makes the button flat without borders
-        borderwidth=0,  # Removes the border width
-        highlightthickness=0,  # Removes the highlight border
-        command=self.register
-    )
+        self.register_button = CTkButton(
+            master=self.root,
+            text="Register",
+            corner_radius=32,
+            fg_color=baby_green,
+            bg_color=navy_blue,
+            text_color="orange",
+            hover=True,
+            hover_color=navy_blue,
+            font=changa,
+            command=self.register,
+        )
+        self.register_button.grid(row=4, column=1)
 
-        self.register_button.grid(row=4, column=1, pady=10)
-
-    def login(self):
+    def login(self) -> None:
+        """
+        Login method.
+        Hashes password given by user and compares to the stored hash.
+        """
+        
         username = self.username_entry.get()
         password = self.password_entry.get()
         hashed_password = hash_password(password)
@@ -125,7 +137,12 @@ class LoginScreen:
         else:
             messagebox.showerror("Login Failed", "Invalid username or password.")
 
-    def register(self):
+    def register(self) -> None:
+        """
+        Registers user in the user database.
+        Hashes password and stores it with the corresponding username.
+        """
+        
         username = self.username_entry.get()
         password = self.password_entry.get()
 
@@ -139,12 +156,18 @@ class LoginScreen:
             messagebox.showinfo("Success", "User registered successfully.")
 
 
-    def launch_password_manager(self, username):
+    def launch_password_manager(self, username: str) -> None:
+        """
+        Launches the password manager after login.
+        """
+        
         manager_root = tk.Tk()
         PasswordManagerApp(manager_root, username)
         manager_root.mainloop()
 
-if __name__ == "__main__":
+
+# Import Guard
+if __name__ == "__main__":  # pragma: no cover
     root = tk.Tk()
     app = LoginScreen(root)
     root.mainloop()
