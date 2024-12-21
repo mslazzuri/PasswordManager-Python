@@ -78,14 +78,16 @@ class LoginScreen:
         self.username_entry.grid(row=1, column=1, pady=8, padx=8)
 
         # Password
-        tk.Label(
-            self.root,
+        password_label = CTkLabel(
+            master=self.root,
             text="Password:",
-            background=navy_blue,
-            foreground=baby_green,
-            font=changa
-        ).grid(row=2, column=0, pady=5, padx=5)
-        
+            font=changa,
+            fg_color=navy_blue,
+            bg_color=navy_blue,
+            text_color=baby_green
+        )
+        password_label.grid(row=2, column=0, pady=5, padx=5)
+
         # Password box (user)
         self.password_entry = tk.Entry(self.root, show="*", background=baby_green, foreground=navy_blue, font=changa_small)
         self.password_entry.grid(row=2, column=1, pady=8, padx=8)
