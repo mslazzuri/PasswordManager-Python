@@ -43,6 +43,10 @@ class LoginScreen:
         # Set background color for the window
         self.root.config(bg=navy_blue)
 
+         # Create a frame to center elements
+        self.center_frame = tk.Frame(self.root, bg=navy_blue)
+        self.center_frame.pack(expand=True, fill="both")
+
         # UI Elements
 
         # Logo
@@ -62,7 +66,7 @@ class LoginScreen:
             background=navy_blue
         )
         logo_label.image = logo
-        logo_label.grid(row=0, column=0, columnspan=3, pady=10)
+        logo_label.pack(pady=10)
 
         # Username
         self.username_entry = CTkEntry(
@@ -78,7 +82,7 @@ class LoginScreen:
             height=50,
             corner_radius=50
         )
-        self.username_entry.grid(row=1, column=0, pady=8, padx=8)
+        self.username_entry.pack(pady=8)
 
         # Password
         self.password_entry = CTkEntry(
@@ -94,7 +98,7 @@ class LoginScreen:
             height=50,
             corner_radius=50,
         )
-        self.password_entry.grid(row=2, column=0, pady=8, padx=8)
+        self.password_entry.pack(pady=8)
 
         # Login Button
         self.login_button = CTkButton(
@@ -106,10 +110,10 @@ class LoginScreen:
             text_color=baby_green,
             hover=True,
             hover_color=navy_blue,
-            font=changa,
+            font=changa_small,
             command=self.login,
         )
-        self.login_button.grid(row=4, column=0, pady=10)
+        self.login_button.pack(pady=10)
 
         # Register User Button
         self.register_button = CTkButton(
@@ -121,10 +125,10 @@ class LoginScreen:
             text_color="orange",
             hover=True,
             hover_color=navy_blue,
-            font=changa,
+            font=changa_small,
             command=self.register,
         )
-        self.register_button.grid(row=4, column=1)
+        self.register_button.pack(pady=10)
 
     def login(self) -> None:
         """
