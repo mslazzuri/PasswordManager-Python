@@ -53,7 +53,7 @@ class LoginScreen:
         logo_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/logo.png"
 
         original_image = Image.open(logo_path)
-        new_width = 400
+        new_width = 300
         ratio = original_image.height / original_image.width
         new_height = int(new_width * ratio)
         resized_image = original_image.resize((new_width, new_height), None)
@@ -71,7 +71,7 @@ class LoginScreen:
         # Username
         self.username_entry = CTkEntry(
             master=self.root,
-            placeholder_text="Password ",
+            placeholder_text="Username",
             placeholder_text_color=navy_blue,
             text_color=navy_blue,
             font=changa,
@@ -82,12 +82,16 @@ class LoginScreen:
             height=50,
             corner_radius=50
         )
-        self.username_entry.pack(pady=8)
+        self.username_entry.pack(pady=10)
 
-        # Password
+        # Password Frame (to simulate the password entry with an embedded button)
+        self.password_frame = tk.Frame(self.root, bg=navy_blue)
+        self.password_frame.pack(pady=10)
+
+        # Password Entry
         self.password_entry = CTkEntry(
-            master=self.root,
-            placeholder_text="Username",
+            master=self.password_frame,
+            placeholder_text="Password",
             placeholder_text_color=navy_blue,
             text_color=navy_blue,
             font=changa,
@@ -97,8 +101,26 @@ class LoginScreen:
             width=200,
             height=50,
             corner_radius=50,
+            show="*",
         )
-        self.password_entry.pack(pady=8)
+        self.password_entry.pack(side="top", fill="x", expand=True)
+
+        # Eye Button
+        eye_image_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/eye.webp"
+        self.show_password = False
+        self.eye_icon = ImageTk.PhotoImage(Image.open(eye_image_path).resize((30, 30)))
+
+        self.eye_button = CTkButton(
+            master=self.password_frame,
+            image=self.eye_icon,
+            width=30,
+            height=30,
+            fg_color=navy_blue,
+            hover_color=blue_grotto,
+            text="",
+            command=self.toggle_password_visibility,
+        )
+        self.eye_button.pack(side="bottom", padx=(5, 0))
 
         # Login Button
         self.login_button = CTkButton(
@@ -175,6 +197,16 @@ class LoginScreen:
         PasswordManagerApp(manager_root, username)
         manager_root.mainloop()
 
+    def toggle_password_visibility(self) -> None:
+        """
+        Changest the password visibility when user clicks on eye logo.
+        """
+        self.show_password = not self.show_password  # Toggle state
+
+        if self.show_password:
+            self.password_entry.configure(show="")  # Show plain text
+        else:
+            self.password_entry.configure(show="*")  # Mask the password        
 
 # Import Guard
 if __name__ == "__main__":  # pragma: no cover
