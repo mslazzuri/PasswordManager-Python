@@ -18,25 +18,25 @@ class LoginScreen:
             root (CTk): The CTk main object for the program.
         """
         
-        self.root = root
+        self.root: CTk = root
         self.root.title("Login")
-        self.users = load_users()
+        self.users: dict = load_users()
 
         ################################################################################
 
         # UI Colors
-        navy_blue = "#05445e"
-        blue_grotto = "#189ab4"
-        blue_green = "#75e6da"
-        baby_green = "#d4f1f4"
-        white = "#ffffff"
+        navy_blue: str = "#05445e"
+        blue_grotto: str = "#189ab4"
+        blue_green: str = "#75e6da"
+        baby_green: str = "#d4f1f4"
+        white: str = "#ffffff"
 
         # UI Fonts
-        helvetica_bold = ("Helvetica", 20, "bold")
-        goldman = ("Goldman", 20, "bold")
-        changa = ("Changa", 20)
-        changa_small = ("Changa", 14)
-        arial = ("Arial", 10)
+        helvetica_bold: tuple[str, int, str] = ("Helvetica", 20, "bold")
+        goldman: tuple[str, int, str] = ("Goldman", 20, "bold")
+        changa: tuple[str, int, str] = ("Changa", 20)
+        changa_small: tuple[str, int, str] = ("Changa", 14)
+        arial: tuple[str, int, str] = ("Arial", 10)
 
         ################################################################################
 
@@ -65,32 +65,36 @@ class LoginScreen:
         logo_label.grid(row=0, column=0, columnspan=3, pady=10)
 
         # Username
-        tk.Label(
-            self.root,
-            text="Username:",
-            background=navy_blue,
-            foreground=baby_green,
-            font=changa
-        ).grid(row=1, column=0, pady=8, padx=8)
-
-        # Username box (user)
-        self.username_entry = tk.Entry(self.root, background=baby_green, foreground=navy_blue, font=changa_small)
-        self.username_entry.grid(row=1, column=1, pady=8, padx=8)
+        self.username_entry = CTkEntry(
+            master=self.root,
+            placeholder_text="Password ",
+            placeholder_text_color=navy_blue,
+            text_color=navy_blue,
+            font=changa,
+            bg_color=navy_blue,
+            fg_color=baby_green,
+            border_color=baby_green,
+            width=200,
+            height=50,
+            corner_radius=50
+        )
+        self.username_entry.grid(row=1, column=0, pady=8, padx=8)
 
         # Password
-        password_label = CTkLabel(
+        self.password_entry = CTkEntry(
             master=self.root,
-            text="Password:",
+            placeholder_text="Username",
+            placeholder_text_color=navy_blue,
+            text_color=navy_blue,
             font=changa,
-            fg_color=navy_blue,
             bg_color=navy_blue,
-            text_color=baby_green
+            fg_color=baby_green,
+            border_color=baby_green,
+            width=200,
+            height=50,
+            corner_radius=50,
         )
-        password_label.grid(row=2, column=0, pady=5, padx=5)
-
-        # Password box (user)
-        self.password_entry = tk.Entry(self.root, show="*", background=baby_green, foreground=navy_blue, font=changa_small)
-        self.password_entry.grid(row=2, column=1, pady=8, padx=8)
+        self.password_entry.grid(row=2, column=0, pady=8, padx=8)
 
         # Login Button
         self.login_button = CTkButton(
