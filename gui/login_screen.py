@@ -106,21 +106,25 @@ class LoginScreen:
         self.password_entry.pack(side="top", fill="x", expand=True)
 
         # Eye Button
-        eye_image_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/eye.webp"
+        eye_image_path = "/Users/matheussecco/PasswordManager/PasswordManagerApp/pictures/eye.jpg"
         self.show_password = False
-        self.eye_icon = ImageTk.PhotoImage(Image.open(eye_image_path).resize((30, 30)))
 
+        # Load image with transparency
+        eye_image = Image.open(eye_image_path).convert("RGBA")
+        self.eye_icon = ImageTk.PhotoImage(eye_image.resize((20, 20)))
+
+        # Transparent button with the same background color as the application
         self.eye_button = CTkButton(
             master=self.password_frame,
             image=self.eye_icon,
             width=30,
             height=30,
-            fg_color=navy_blue,
-            hover_color=blue_grotto,
+            fg_color="transparent",  # or match bg_color of the password_frame
+            hover_color=baby_green,  # Optional: Set a hover color
             text="",
             command=self.toggle_password_visibility,
         )
-        self.eye_button.pack(side="bottom", padx=(5, 0))
+        self.eye_button.pack(pady=10)
 
         # Login Button
         self.login_button = CTkButton(
@@ -160,12 +164,15 @@ class LoginScreen:
         
         username = self.username_entry.get()
         password = self.password_entry.get()
-        hashed_password = hash_password(password)
 
-        if username in self.users and verify_password(password, hashed_password):
-            messagebox.showinfo("Login Successful", f"Welcome, {username}!")
-            self.root.destroy()
-            self.launch_password_manager(username)
+        if username in self.users:
+            stored_hash = self.users[username]
+            if verify_password(password, stored_hash):
+                messagebox.showinfo("Login Successful", f"Welcome, {username}!")
+                self.root.destroy()
+                self.launch_password_manager(username)
+            else:
+                messagebox.showerror("Login Failed", "Invalid username or password.")
         else:
             messagebox.showerror("Login Failed", "Invalid username or password.")
 
