@@ -6,7 +6,7 @@ from utils.file_utils import load_passwords, save_passwords
 from utils.crypto_utils import decrypt_password, encrypt_password
 
 class PasswordManagerApp:
-    def __init__(self, root: tk, username: str) -> None:
+    def __init__(self, root: CTk, username: str) -> None:
         self.root = root
         self.root.title("Password Manager")
 
@@ -23,6 +23,7 @@ class PasswordManagerApp:
         y_offset = (screen_height - window_height) // 2
 
         self.root.geometry(f"{window_width}x{window_height}+{x_offset}+{y_offset}")
+        self.root.resizable(False, False)
 
         self.username = username
         self.passwords = load_passwords()
@@ -34,18 +35,15 @@ class PasswordManagerApp:
         ################################################################################
 
         # UI Colors
-        navy_blue = "#05445e"
-        blue_grotto = "#189ab4"
-        blue_green = "#75e6da"
-        baby_green = "#d4f1f4"
-        white = "#ffffff"
+        navy_blue: str = "#161A30"
+        lighter_blue: str = "#31304D"
+        orange: str = "#F6B17A"
+        snow: str = "#F0ECE5"
+        grey: str = "#B6BBC4"
 
         # UI Fonts
-        helvetica_bold = ("Helvetica", 20, "bold")
-        goldman = ("Goldman", 20, "bold")
         changa = ("Changa", 20)
         changa_small = ("Changa", 14)
-        arial = ("Arial", 10)
 
         # Other button attributes
         button_width = 200
@@ -64,7 +62,7 @@ class PasswordManagerApp:
             master=self.root,
             text="Logout",
             font=changa_small,
-            text_color="orange",
+            text_color=orange,
             fg_color=navy_blue, 
             bg_color=navy_blue,  # Background color
             command=self.logout_screen
@@ -76,18 +74,18 @@ class PasswordManagerApp:
         self.listbox_frame.pack(pady=10, padx=10)
 
         # Scrollbar
-        self.scrollbar = tk.Scrollbar(self.listbox_frame)
+        self.scrollbar = tk.Scrollbar(master=self.listbox_frame)
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         # Passwords listbox
         self.password_listbox = tk.Listbox(
             master=self.listbox_frame,
             font=changa_small,
-            background=baby_green,
+            background=snow,
             foreground=navy_blue,
             selectmode=tk.SINGLE,  # Allow only one selection at a time
-            selectbackground=blue_grotto,
-            selectforeground="orange",
+            selectbackground=lighter_blue,
+            selectforeground=orange,
             yscrollcommand=self.scrollbar.set,  # Link listbox scrolling to scrollbar
             width=30,
             height=10
@@ -111,8 +109,8 @@ class PasswordManagerApp:
             text="Add Password",
             corner_radius=32,
             font=changa,
-            text_color=baby_green,
-            fg_color="orange",
+            text_color=snow,
+            fg_color=orange,
             width=button_width,
             hover=True, 
             hover_color=navy_blue,
@@ -126,8 +124,8 @@ class PasswordManagerApp:
             text="View Password",
             corner_radius=32,
             font=changa,
-            text_color=baby_green,
-            fg_color="orange",
+            text_color=snow,
+            fg_color=orange,
             width=button_width,
             hover=True, 
             hover_color=navy_blue,
@@ -141,8 +139,8 @@ class PasswordManagerApp:
             text="Modify password",
             corner_radius=32,
             font=changa,
-            text_color=baby_green,
-            fg_color="orange",
+            text_color=snow,
+            fg_color=orange,
             width=button_width,
             hover=True, 
             hover_color=navy_blue,
@@ -156,8 +154,8 @@ class PasswordManagerApp:
             text="Delete password",
             corner_radius=32,
             font=changa,
-            text_color=baby_green,
-            fg_color="orange",
+            text_color=snow,
+            fg_color=orange,
             width=button_width,
             hover=True, 
             hover_color=navy_blue,

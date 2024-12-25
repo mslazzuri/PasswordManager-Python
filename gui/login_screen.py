@@ -34,23 +34,22 @@ class LoginScreen:
         y_offset = (screen_height - window_height) // 2
         
         self.root.geometry(f"{window_width}x{window_height}+{x_offset}+{y_offset}")
+        self.root.resizable(False, False)
+        
         self.users: dict = load_users()
 
         ################################################################################
 
         # UI Colors
-        navy_blue: str = "#05445e"
-        blue_grotto: str = "#189ab4"
-        blue_green: str = "#75e6da"
-        baby_green: str = "#d4f1f4"
-        white: str = "#ffffff"
+        navy_blue: str = "#161A30"
+        lighter_blue: str = "#31304D"
+        orange: str = "#F6B17A"
+        snow: str = "#F0ECE5"
+        grey: str = "#B6BBC4"
 
         # UI Fonts
-        helvetica_bold: tuple[str, int, str] = ("Helvetica", 20, "bold")
-        goldman: tuple[str, int, str] = ("Goldman", 20, "bold")
         changa: tuple[str, int, str] = ("Changa", 20)
         changa_small: tuple[str, int, str] = ("Changa", 14)
-        arial: tuple[str, int, str] = ("Arial", 10)
 
         ################################################################################
 
@@ -90,8 +89,8 @@ class LoginScreen:
             text_color=navy_blue,
             font=changa,
             bg_color=navy_blue,
-            fg_color=baby_green,
-            border_color=baby_green,
+            fg_color=snow,
+            border_color=snow,
             width=200,
             height=50,
             corner_radius=50
@@ -110,8 +109,8 @@ class LoginScreen:
             text_color=navy_blue,
             font=changa,
             bg_color=navy_blue,
-            fg_color=baby_green,
-            border_color=baby_green,
+            fg_color=snow,
+            border_color=snow,
             width=200,
             height=50,
             corner_radius=50,
@@ -134,7 +133,7 @@ class LoginScreen:
             width=30,
             height=30,
             fg_color="transparent",  # or match bg_color of the password_frame
-            hover_color=baby_green,  # Optional: Set a hover color
+            hover_color=snow,  # Optional: Set a hover color
             text="",
             command=self.toggle_password_visibility,
         )
@@ -145,9 +144,9 @@ class LoginScreen:
             master=self.root,
             text="Login",
             corner_radius=32,
-            fg_color="orange",
+            fg_color=orange,
             bg_color=navy_blue,
-            text_color=baby_green,
+            text_color=snow,
             hover=True,
             hover_color=navy_blue,
             font=changa_small,
@@ -155,14 +154,17 @@ class LoginScreen:
         )
         self.login_button.pack(pady=10)
 
+        # Press enter to login
+        self.root.bind("<Return>", self.login_keypress)
+
         # Register User Button
         self.register_button = CTkButton(
             master=self.root,
             text="Register",
             corner_radius=32,
-            fg_color=baby_green,
+            fg_color=lighter_blue,
             bg_color=navy_blue,
-            text_color="orange",
+            text_color=orange,
             hover=True,
             hover_color=navy_blue,
             font=changa_small,
@@ -189,6 +191,10 @@ class LoginScreen:
                 messagebox.showerror("Login Failed", "Invalid username or password.")
         else:
             messagebox.showerror("Login Failed", "Invalid username or password.")
+
+    def login_keypress(self, event) -> None:
+        """Triggered when ENTER key."""
+        self.login()
 
     def register(self) -> None:
         """
