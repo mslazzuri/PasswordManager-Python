@@ -34,113 +34,131 @@ class PasswordManagerApp:
         arial = ("Arial", 10)
 
         # Other button attributes
-        button_width = 10
+        button_width = 200
 
         ################################################################################
 
         # Background color for the window
         self.root.configure(bg=navy_blue)
 
+        # Center frame to center everything
+        self.center_frame = tk.Frame(self.root, bg=navy_blue)
+        self.center_frame.pack(expand=True, fill="both")
+
         # Logout button
-        self.logout_button = tk.Button(
-            root,
+        self.logout_button = CTkButton(
+            master=self.root,
             text="Logout",
             font=changa_small,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
-            highlightthickness=0,  # Removes the highlight border
-            width=button_width,
+            text_color="orange",
+            fg_color=navy_blue, 
+            bg_color=navy_blue,  # Background color
             command=self.logout_screen
         )
-        self.logout_button.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
-        
-        # Passwords list box
+        self.logout_button.pack(pady=8)
+
+        # Frame to hold the listbox and scrollbar
+        self.listbox_frame = tk.Frame(master=self.center_frame, bg=navy_blue)
+        self.listbox_frame.pack(pady=10, padx=10)
+
+        # Scrollbar
+        self.scrollbar = tk.Scrollbar(self.listbox_frame)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Passwords listbox
         self.password_listbox = tk.Listbox(
-            root,
+            master=self.listbox_frame,
             font=changa_small,
             background=baby_green,
             foreground=navy_blue,
-            width=50
+            selectmode=tk.SINGLE,  # Allow only one selection at a time
+            yscrollcommand=self.scrollbar.set,  # Link listbox scrolling to scrollbar
+            width=30,
+            height=10
         )
-        self.password_listbox.grid(row=1, column=0, columnspan=2, padx=10, pady=10, sticky='ew')
+        self.password_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        # Configure the scrollbar to work with the listbox
+        self.scrollbar.config(command=self.password_listbox.yview)
+
+        # Buttons grid (frame)
+        self.buttons_frame = tk.Frame(self.root, bg=navy_blue)
+        self.buttons_frame.pack(expand=True, fill="both")
+
+        # Buttons frame
+        self.buttons_frame = tk.Frame(master=self.center_frame, bg=navy_blue)
+        self.buttons_frame.pack(pady=10)
 
         # Add Button
-        self.add_button = tk.Button(
-            root,
+        self.add_button = CTkButton(
+            master=self.buttons_frame,
             text="Add Password",
-            font=changa_small,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
+            corner_radius=32,
+            font=changa,
+            text_color=baby_green,
+            fg_color="orange",
             width=button_width,
-            highlightthickness=0,  # Removes the highlight border
-            
+            hover=True, 
+            hover_color=navy_blue,
             command=self.add_password
         )
-        self.add_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
+        self.add_button.grid(row=0, column=0, padx=5, pady=5)
 
         # View Button
-        self.view_button = tk.Button(
-            root,
+        self.view_button = CTkButton(
+            master=self.buttons_frame,
             text="View Password",
-            font=changa_small,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
-            highlightthickness=0,  # Removes the highlight border
+            corner_radius=32,
+            font=changa,
+            text_color=baby_green,
+            fg_color="orange",
             width=button_width,
+            hover=True, 
+            hover_color=navy_blue,
             command=self.view_password
         )
-        self.view_button.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
-
-        # Delete Button
-        self.delete_button = tk.Button(
-            root,
-            text="Delete Password",
-            font=changa_small,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
-            highlightthickness=0,  # Removes the highlight border
-            width=button_width,
-            command=self.delete_password
-        )
-        self.delete_button.grid(row=3, column=0, padx=5, pady=5, sticky='ew')
+        self.view_button.grid(row=0, column=1, padx=5, pady=5)
 
         # Modify Button
-        self.modify_button = tk.Button(
-            root,
-            text="Modify Password",
-            font=changa_small,
-            foreground=navy_blue, 
-            background=blue_green,  # Background color
-            activebackground=navy_blue,  # Active background when clicked
-            activeforeground=blue_green,  # Active text color when clicked
-            relief='flat',  # Makes the button flat without borders
-            borderwidth=0,  # Removes the border width
-            highlightthickness=0,  # Removes the highlight border
+        self.modify_button = CTkButton(
+            master=self.buttons_frame,
+            text="Modify password",
+            corner_radius=32,
+            font=changa,
+            text_color=baby_green,
+            fg_color="orange",
             width=button_width,
+            hover=True, 
+            hover_color=navy_blue,
             command=self.modify_password
         )
-        self.modify_button.grid(row=3, column=1, padx=5, pady=5, sticky='ew')
+        self.modify_button.grid(row=1, column=0, padx=5, pady=5)
+
+        # Delete Button
+        self.delete_button = CTkButton(
+            master=self.buttons_frame,
+            text="Delete password",
+            corner_radius=32,
+            font=changa,
+            text_color=baby_green,
+            fg_color="orange",
+            width=button_width,
+            hover=True, 
+            hover_color=navy_blue,
+            command=self.delete_password
+        )
+        self.delete_button.grid(row=1, column=1, padx=5, pady=5)
 
         self.update_listbox()
 
     def update_listbox(self):
+        """
+        Update the listbox with the current user's services.
+        """
+        # Clear all items in the listbox
         self.password_listbox.delete(0, tk.END)
+        
+        # Populate the listbox with services
         for service in self.passwords[self.username]:
             self.password_listbox.insert(tk.END, service)
 
@@ -190,9 +208,15 @@ class PasswordManagerApp:
             messagebox.showerror("Error", "Please select a service.")
     
     def logout_screen(self):
-        pass
+        """
+        Handles logout functionality.
+        Returns the user to the login screen.
+        """
+        # Destroy the current password manager screen
+        self.root.destroy()
+
 
 if __name__ == "__main__":
-    root = tk.Tk()
+    root = CTk()
     app = PasswordManagerApp(root, "example_user")
     root.mainloop()
