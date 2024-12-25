@@ -10,6 +10,20 @@ class PasswordManagerApp:
         self.root = root
         self.root.title("Password Manager")
 
+        # Calculate screen dimensions
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # Window dimensions
+        window_width = 650
+        window_height = 570
+
+        # Calculate position
+        x_offset = (screen_width - window_width) // 2
+        y_offset = (screen_height - window_height) // 2
+
+        self.root.geometry(f"{window_width}x{window_height}+{x_offset}+{y_offset}")
+
         self.username = username
         self.passwords = load_passwords()
         if username not in self.passwords:

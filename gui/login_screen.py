@@ -20,6 +20,20 @@ class LoginScreen:
         
         self.root: CTk = root
         self.root.title("Login")
+        
+        # Calculate screen dimensions
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # Window dimensions
+        window_width = 750
+        window_height = 570
+
+        # Calculate position
+        x_offset = (screen_width - window_width) // 2
+        y_offset = (screen_height - window_height) // 2
+        
+        self.root.geometry(f"{window_width}x{window_height}+{x_offset}+{y_offset}")
         self.users: dict = load_users()
 
         ################################################################################
