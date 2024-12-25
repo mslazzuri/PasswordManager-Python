@@ -1,6 +1,7 @@
 # password_manager.py
 import tkinter as tk
 from tkinter import simpledialog, messagebox
+from tkinter import Tk, Frame, Listbox, Scrollbar, RIGHT, Y, BOTH, SINGLE, LEFT, ttk
 from customtkinter import *
 from utils.file_utils import load_passwords, save_passwords
 from utils.crypto_utils import decrypt_password, encrypt_password
@@ -69,12 +70,32 @@ class PasswordManagerApp:
         )
         self.logout_button.pack(pady=8)
 
+        # Define a style for the scrollbar
+        style = ttk.Style()
+        style.theme_use("default")  # Ensure compatibility with custom styles
+        style.configure(
+            "Custom.Vertical.TScrollbar",
+            gripcount=10,
+            background=navy_blue,
+            troughcolor=snow,
+            arrowcolor=snow,
+            relief="flat",
+            borderwidth=0,
+            bordercolor=snow
+        )
+
+        style.map(
+           "Custom.Vertical.TScrollbar",
+           background=[("active", lighter_blue)],
+           arrowcolor=[("active", orange)]
+        )
+
         # Frame to hold the listbox and scrollbar
         self.listbox_frame = tk.Frame(master=self.center_frame, bg=navy_blue)
         self.listbox_frame.pack(pady=10, padx=10)
 
         # Scrollbar
-        self.scrollbar = tk.Scrollbar(master=self.listbox_frame)
+        self.scrollbar = ttk.Scrollbar(master=self.listbox_frame, orient="vertical", style="Custom.Vertical.TScrollbar")
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         # Passwords listbox
