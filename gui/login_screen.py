@@ -26,8 +26,8 @@ class LoginScreen:
         screen_height = self.root.winfo_screenheight()
 
         # Window dimensions
-        window_width = 750
-        window_height = 570
+        window_width = 700
+        window_height = 650
 
         # Calculate position
         x_offset = (screen_width - window_width) // 2

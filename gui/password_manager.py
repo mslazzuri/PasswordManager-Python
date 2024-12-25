@@ -86,6 +86,8 @@ class PasswordManagerApp:
             background=baby_green,
             foreground=navy_blue,
             selectmode=tk.SINGLE,  # Allow only one selection at a time
+            selectbackground=blue_grotto,
+            selectforeground="orange",
             yscrollcommand=self.scrollbar.set,  # Link listbox scrolling to scrollbar
             width=30,
             height=10
