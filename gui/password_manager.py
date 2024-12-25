@@ -173,9 +173,11 @@ class PasswordManagerApp:
         """
         # Clear all items in the listbox
         self.password_listbox.delete(0, tk.END)
+
+        services = sorted(self.passwords[self.username].keys())
         
         # Populate the listbox with services
-        for service in self.passwords[self.username]:
+        for service in services:
             self.password_listbox.insert(tk.END, service)
 
     def add_password(self):
